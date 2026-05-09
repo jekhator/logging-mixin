@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "logging-mixin"
+version = "0.1.0"
+description = "Class-bound structured logging with auto-injected correlation IDs for Python services."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "James Ekhator" }]
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Logging",
+    "Typing :: Typed",
+]
+keywords = ["logging", "structured-logging", "correlation-id", "distributed-tracing", "observability"]
+
+[project.urls]
+Homepage = "https://github.com/jekhator/logging-mixin"
+Repository = "https://github.com/jekhator/logging-mixin.git"
+Issues = "https://github.com/jekhator/logging-mixin/issues"
+
+[project.optional-dependencies]
+django = ["django>=4.2"]
+fastapi = ["fastapi>=0.100"]
+aws-lambda = []
+dev = ["pytest>=8", "pytest-cov", "django>=4.2", "fastapi>=0.100"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/logging_mixin"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["src/logging_mixin"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
